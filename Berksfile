@@ -1,3 +1,4 @@
 site :opscode
 
-cookbook 'mongodb'
+cookbook 'mongodb-cognode'
+cookbook 'nginx-cognode'
