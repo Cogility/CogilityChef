@@ -6,7 +6,7 @@ file "/etc/nginx/nginx.conf" do
 	action :delete
 end
 
-cookfile_file "/etc/nginx/nginx.conf" do
+cookbook_file "/etc/nginx/nginx.conf" do
 	source "nginx.conf"
 	action :create
 end
