@@ -1,4 +1,4 @@
-name		"cognodemongodb"
+name		"cognode-mongodb"
 description	'Cookbook for the Cogility Node product'
 maintainer	"Cogility Software"
 license		"Apache 2.0"

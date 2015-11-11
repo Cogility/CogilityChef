@@ -1,4 +1,4 @@
-name		"cognodenginx"
+name		"cognode-nginx"
 description	'Cookbook for the Cogility Node product - FrontEnd'
 maintainer	"Cogility Software"
 license		"Apache 2.0"
