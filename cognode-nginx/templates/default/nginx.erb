@@ -1,0 +1,17 @@
+server {
+    listen       80;
+    server_name  localhost;
+ 
+    location ~ ^/?($|index.html|robots.txt|favicon.ico|assets/|fonts/) {
+        root /opt/cogility/ceaui;
+        index index.html index.htm;
+    }
+ 
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass    http://10.0.0.162:8080/;
+    }
+}
