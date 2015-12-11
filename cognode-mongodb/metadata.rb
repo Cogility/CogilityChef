@@ -1,7 +1,9 @@
-name		"cognode-mongodb"
-description	'Cookbook for the Cogility Node product'
-maintainer	"Cogility Software"
-license		"Apache 2.0"
-version		"1.0.0"
+name             'cognode-mongodb'
+maintainer       'Farye Nwede'
+maintainer_email 'FNwede@cogility.com'
+license          'All rights reserved'
+description      'Installs/Configures cognode-mongodb'
+long_description 'Installs/Configures cognode-mongodb'
+version          '0.1.0'
 
-depends 'mongodb'
+recipe 'cognode-mongodb', 'Installs/Configures cognode-mongodb'

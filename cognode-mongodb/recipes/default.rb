@@ -1,3 +1,11 @@
+#
+# Cookbook Name:: cognode-mongodb
+# Recipe:: default
+#
+# Copyright (C) 2015 Farye Nwede
+#
+# All rights reserved - Do Not Redistribute
+#
 ['mongodb-enterprise-server-3.0.7-1.el6.x86_64.rpm', 'mongodb-enterprise-shell-3.0.7-1.el6.x86_64.rpm', 'mongodb-enterprise-tools-3.0.7-1.el6.x86_64.rpm'].each do |p| 
 # start from an array of packages, could be an attributes like node['my_namespace']['packages']
 	package p do # no need to do interpolation here, we just need the name
@@ -6,9 +14,10 @@
 	end
 
 	cookbook_file "/tmp/#{p}" do # I prefer setting the destination in the name
-		source p                   # and tell the source name, so in case of different platfom I can take advantage of the resolution of files withint the cookbook tree
+		source p				# and tell the source name, so in case of different platfom I can take advantage of the resolution of files withint the cookbook tree
+		mode '0775'
 		action :create 
-		notifies :install, "package[/tmp/#{p}]", :immediately 
+		notifies :install, "package[#{p}]", :immediately
 	end
 end
 
