@@ -43,7 +43,8 @@ remote_file '/opt/cogility/ceaui-static.tar.gz' do
 end
 
 execute 'extract_ceaui' do
-	command 'cd /opt/cogility && tar xvzf ceaui-static.tar.gz && mv dist ceaui'
+	cwd '/opt/cogility'
+	command 'tar xvzf ceaui-static.tar.gz && mv dist ceaui'
 	creates '/opt/cogility/ceaui'
 	action :nothing
 end

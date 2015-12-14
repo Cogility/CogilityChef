@@ -6,7 +6,28 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-['mongodb-enterprise-server-3.0.7-1.el6.x86_64.rpm', 'mongodb-enterprise-shell-3.0.7-1.el6.x86_64.rpm', 'mongodb-enterprise-tools-3.0.7-1.el6.x86_64.rpm'].each do |p| 
+package 'net-snmp' do
+	action :install
+	only_if do platform?("redhat") end	
+end
+
+package 'cyrus-sasl' do
+	action :install
+end
+
+package 'cyrus-sasl-plain' do
+	action :install
+end
+
+package 'cyrus-sasl-gssapi' do
+	action :install
+end
+
+package 'net-snmp-utils' do 
+	action :install
+end 
+
+['mongodb-enterprise-server-3.0.7-1.el7.x86_64.rpm', 'mongodb-enterprise-shell-3.0.7-1.el7.x86_64.rpm', 'mongodb-enterprise-tools-3.0.7-1.el7.x86_64.rpm'].each do |p| 
 # start from an array of packages, could be an attributes like node['my_namespace']['packages']
 	rpm_package p do # no need to do interpolation here, we just need the name
 		source "/tmp/#{p}" # Here we have to concatenate path and name
