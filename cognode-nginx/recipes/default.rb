@@ -38,5 +38,12 @@ remote_file '/opt/cogility/ceaui-static.tar.gz' do
 	owner 'ec2-user'
 	group 'ec2-user'
 	mode '0755'
-	action :create	
+	action :create
+	notifies :run, 'execute[extract_ceaui]', :immediately
+end
+
+execute 'extract_ceaui' do
+	command 'cd /opt/cogility && tar xvzf ceaui-static.tar.gz && mv dist ceaui'
+	creates '/opt/cogility/ceaui'
+	action :nothing
 end
