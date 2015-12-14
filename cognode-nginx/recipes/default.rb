@@ -23,7 +23,7 @@ template "/etc/nginx/nginx.conf" do
 end
 
 service "nginx" do
-	action :start
+	supports :status => true, :restart => true, :reload => true	
 end
 
 directory '/opt/cogility' do
