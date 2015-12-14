@@ -17,7 +17,7 @@
 		source p				# and tell the source name, so in case of different platfom I can take advantage of the resolution of files withint the cookbook tree
 		mode '0775'
 		action :create 
-		notifies :install, "package[#{p}]", :immediately
+		notifies :install, "rpm_package[#{p}]", :immediately
 	end
 end
 
