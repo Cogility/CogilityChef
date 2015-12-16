@@ -20,7 +20,7 @@ default[:mongodb][:configserver_url] = nil
 
 default[:cognode-mongodb][:root_group] = 'root'
 default[:cognode-mongodb][:user] = 'mongodb'
-default[:cognode-mongodb][:group] = 'mongodb']
+default[:cognode-mongodb][:group] = 'mongodb'
 
 default[:cognode-mongodb][:init_dir] = '/etc/init.d'
 default[:cognode-mongodb][:init_script_template] = 'redhat-mongodb.init.erb'
