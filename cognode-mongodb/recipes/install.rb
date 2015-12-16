@@ -22,22 +22,22 @@
 	end
 end
 
-directory node['cognode-mongodb']['config']['dbpath'] do
-	owner node['cognode-mongodb']['user']
-	group node['cognode-mongodb']['group']
+directory node['cognode_mongodb']['config']['dbpath'] do
+	owner node['cognode_mongodb']['user']
+	group node['cognode_mongodb']['group']
 	mode '0755'
 	action :create
 end
 
 # just-in-case config file drop
-template node['cognode-mongodb']['dbconfig_file'] do
-  cookbook node['cognode-mongodb']['template_cookbook']
-  source node['cognode-mongodb']['dbconfig_file_template']
-  group node['cognode-mongodb']['root_group']
+template node['cognode_mongodb']['dbconfig_file'] do
+  cookbook node['cognode_mongodb']['template_cookbook']
+  source node['cognode_mongodb']['dbconfig_file_template']
+  group node['cognode_mongodb']['root_group']
   owner 'root'
   mode 0644
   variables(
-    :config => node['cognode-mongodb']['config']
+    :config => node['cognode_mongodb']['config']
   )
   action :create
 end

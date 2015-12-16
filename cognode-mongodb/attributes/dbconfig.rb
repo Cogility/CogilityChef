@@ -7,24 +7,24 @@
 
 include_attribute 'cognode-mongodb::default'
 
-default['cognode-mongodb']['config']['port'] = 27017
-default['cognode-mongodb']['config']['bind_ip'] = '0.0.0.0'
+default['cognode_mongodb']['config']['port'] = 27017
+default['cognode_mongodb']['config']['bind_ip'] = '0.0.0.0'
 
 # Workaround for opscode/chef#1507, which prevents users from
 # unsetting our default with a nil override.
 # So we make sure to unset logpath when syslog is set since the two
 # settings are incompatible.
 # For more information see: edelight/chef-mongodb#310
-unless node['cognode-mongodb']['config']['syslog']
-  default['cognode-mongodb']['config']['logpath'] = '/var/log/mongodb/mongodb.log'
+unless node['cognode_mongodb']['config']['syslog']
+  default['cognode_mongodb']['config']['logpath'] = '/var/log/mongodb/mongodb.log'
 end
-default['cognode-mongodb']['config']['logappend'] = true
+default['cognode_mongodb']['config']['logappend'] = true
 # The platform_family? syntax in attributes files was added in Chef 11
 # if node.platform_family?("rhel", "fedora") then
 case node['platform_family']
 when 'rhel'
-  default['cognode-mongodb']['config']['fork'] = true
-  default['cognode-mongodb']['config']['pidfilepath'] = '/var/run/mongodb/mongodb.pid'
+  default['cognode_mongodb']['config']['fork'] = true
+  default['cognode_mongodb']['config']['pidfilepath'] = '/var/run/mongodb/mongodb.pid'
 end
 
-default['cognode-mongodb']['config']['dbpath'] = '/data/db'
+default['cognode_mongodb']['config']['dbpath'] = '/data/db'
