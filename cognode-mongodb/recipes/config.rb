@@ -14,7 +14,7 @@ template '/tmp/firstuser.js' do
 	group node['cognode_mongodb']['group']
 	mode 0644
 	action :create	
-	notifies :run, "config_cea", :immediately
+	notifies :run, "execute[config_cea]", :immediately
 end
 
 execute 'config_cea' do
