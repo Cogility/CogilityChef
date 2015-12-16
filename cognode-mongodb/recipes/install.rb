@@ -43,9 +43,22 @@ end
 	end
 end
 
-directory '/data/db' do
-	owner 'mongod'
-	group 'mongod'
+directory node['cognode-mongodb']['config']['dbpath'] do
+	owner node['cognode-mongodb']['user']
+	group node['cognode-mongodb']['group']
 	mode '0755'
 	action :create
+end
+
+# just-in-case config file drop
+template node['cognode-mongodb']['dbconfig_file'] do
+  cookbook node['cognode-mongodb']['template_cookbook']
+  source node['cognode-mongodb']['dbconfig_file_template']
+  group node['cognode-mongodb']['root_group']
+  owner 'root'
+  mode 0644
+  variables(
+    :config => node['cognode-mongodb']['config']
+  )
+  action :create
 end
