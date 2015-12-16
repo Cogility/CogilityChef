@@ -16,7 +16,7 @@ default[:cognode-mongodb][:auto_configure][:sharding] = true
 
 # don't use the node's fqdn, but this url instead; something like 'ec2-x-y-z-z.aws.com' or 'cs1.domain.com' (no port)
 # if not provided, will fall back to the FQDN
-default[:mongodb][:configserver_url] = nil
+default[:cognode-mongodb][:configserver_url] = nil
 
 default[:cognode-mongodb][:root_group] = 'root'
 default[:cognode-mongodb][:user] = 'mongodb'
