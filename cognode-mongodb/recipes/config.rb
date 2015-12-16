@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-template /tmp/firstuser.js do
+template '/tmp/firstuser.js' do
 	cookbook node['cognode_mongodb']['template_cookbook']
 	source node['cognode_mongodb']['dbuser_template'] 
 	user node['cognode_mongodb']['user']
