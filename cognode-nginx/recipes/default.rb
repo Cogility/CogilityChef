@@ -11,11 +11,11 @@ service "nginx" do
 	action :stop
 end 
 
-file "/etc/nginx/nginx.conf" do
+file "/etc/nginx/conf.d/default.conf" do
 	action :delete
 end
 
-template "/etc/nginx/nginx.conf" do 
+template "/etc/nginx/conf.d/default.conf" do 
 	source "nginx.erb"
 	owner "root"
 	group "root"
@@ -44,7 +44,7 @@ end
 
 execute 'extract_ceaui' do
 	cwd '/opt/cogility'
-	command 'tar xvzf ceaui-static.tar.gz && mv dist ceaui'
+	command 'tar xvzf ceaui-static.tar.gz && mv dist ceaui && rm ceaui-static.tar.gz'
 	creates '/opt/cogility/ceaui'
 	action :nothing
 end
