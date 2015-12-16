@@ -8,11 +8,11 @@ systemLog:
   verbosity: 0
   destination: file  
   logAppend: true
-  path: <%= @logpath %>
+  path: <%= node['cognode_mongodb']['config']['logpath'] %>
 
 # Where and how to store data.
 storage:
-  dbPath: <%= @dbpath %>
+  dbPath: <%= node['cognode_mongodb']['config']['dbpath'] %>
   journal:
     enabled: true
   engine: wiredTiger
@@ -33,13 +33,13 @@ storage:
 # how the process runs
 processManagement:
   fork: true  # fork and run in background
-  pidFilePath: <%= @pidfilepath %>
+  pidFilePath: <%= node['cognode_mongodb']['config']['pidfilepath'] %>
 
 # network interfaces
 net:
-  port: <%= @port  %>
+  port: <%= node['cognode_mongodb']['config']['port']  %>
   # bindIp: 127.0.0.1  # Listen to local interface only, comment to listen on all interfaces.
-  bindIp: <%= @bind_ip %>
+  bindIp: <%= node['cognode_mongodb']['config']['bind_ip'] %>
 
 #security:
 
