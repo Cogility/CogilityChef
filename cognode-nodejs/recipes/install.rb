@@ -19,3 +19,9 @@ directory node['cognode-nodejs']['engagements_directory'] do
 	mode '0755'
 	action :create
 end
+
+execute 'install_java_8' do
+	cwd node['cognode-nodejs']['java_install_dir']
+	command 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.tar.gz" && tar xzf jdk-8u60-linux-x64.tar.gz && ln -s jdk-8u60-linux-x64 java'
+	creates node['cognode-nodejs']['java_home']
+end

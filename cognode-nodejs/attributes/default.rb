@@ -13,3 +13,6 @@ default[:cognode-nodejs][:root_group] = 'root'
 
 default[:cognode-nodejs][:cogilitynode_directory] = '/opt/cogility/CogilityNode'
 default[:cognode-nodejs][:engagements_directory] = '/opt/cogility/Engagements'
+
+default[:cognode-nodejs][:java_install_dir] = '/opt'
+default[:cognode-nodejs][:java_home] = '/opt/java'
