@@ -44,7 +44,7 @@ end
 
 execute 'extract_ceaui' do
 	cwd '/opt/cogility'
-	command 'tar xvzf ceaui-static.tar.gz && mv dist ceaui && rm ceaui-static.tar.gz'
+	command 'tar xvzf ceaui-static.tar.gz && mv tmp/ceaui/ ceaui && rm ceaui-static.tar.gz && rm -rf tmp'
 	creates '/opt/cogility/ceaui'
 	action :nothing
 end
