@@ -34,7 +34,7 @@ directory '/opt/cogility' do
 end
 
 remote_file '/opt/cogility/ceaui-static.tar.gz' do
-	source 'https://s3-us-west-1.amazonaws.com/cogility-builds/ceaui/ceaui-static.latest.tar.gz'
+	source 'https://s3-us-west-1.amazonaws.com/cogility-builds/ceaui/ceaui-static-build_latest.tar.gz'
 	owner 'ec2-user'
 	group 'ec2-user'
 	mode '0755'
