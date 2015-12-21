@@ -47,7 +47,7 @@ bash "append_to_ec2_bash" do
 		cat /tmp/java_variables.conf >> /home/ec2-user/.bashrc
 		rm /tmp/java_variables.conf
 	EOF
-	not_if "grep -q JAVA_HOME /home/ec2-user/.bashrc
+	not_if "grep -q JAVA_HOME /home/ec2-user/.bashrc"
 	action :nothing
 end
 
