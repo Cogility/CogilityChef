@@ -40,4 +40,11 @@ template node['cognode_mongodb']['dbconfig_file'] do
     :config => node['cognode_mongodb']['config']
   )
   action :create
+  notifies :run, 'execute[chown_dependencies]', :immediately
+end
+
+execute 'chown_dependencies' do 
+	cwd '/'
+	command 'chown -R mongod:mongod /data && chown -R mongod:mongod /var/run/mongodb && chown -R mongod:mongod /var/log/mongodb'
+	action :nothing
 end
