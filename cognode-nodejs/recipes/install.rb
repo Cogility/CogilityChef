@@ -7,11 +7,19 @@
 # All rights reserved - Do Not Redistribute
 #
 
-execute 'get_cognode_repo' do
+remote_file '/tmp/cogility_node.tar.gz' do 
+	source 'https://s3-us-west-1.amazonaws.com/cogility-builds/cogilitynode/cogility_node_latest.tar.gz'
+	owner node['cognode_nodejs']['user']
+	group node['cognode_nodejs']['group']
+	mode '0755'
+	action :create
+end 
+
+execute 'extract_cognode_repo' do 
 	cwd node['cognode_nodejs']['cogility_directory']
-	command 'git clone https://7e0e7ee0251607393b9cd83e338157cd382f0259:x-oauth-basic@github.com/Cogility/CogilityNode.git'
+	command 'tar xzvf /tmp/cogility_node.tar.gz'
 	creates node['cognode_nodejs']['cogilitynode_directory']
-end
+end 
 
 directory node['cognode_nodejs']['engagements_directory'] do
 	owner node['cognode_nodejs']['user']
