@@ -52,7 +52,7 @@ cookbook_file "/tmp/java_variables.conf" do
 	owner node['cognode_nodejs']['user']
 	group node['cognode_nodejs']['group']	
 	notifies :run, 'bash[append_to_root_bash]', :immediately
-	action :none
+	action :nothing
 end 
 
 bash "append_to_root_bash" do
