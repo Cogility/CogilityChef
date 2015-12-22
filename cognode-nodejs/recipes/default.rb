@@ -9,3 +9,5 @@
 
 include_recipe 'cognode-nodejs::cogility'
 include_recipe 'cognode-nodejs::install'
+include_recipe 'cognode-nodejs::compile'
+include_recipe 'cognode-nodejs::cea_install'

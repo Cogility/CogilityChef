@@ -17,7 +17,7 @@ end
 
 execute 'extract_cognode_repo' do 
 	cwd node['cognode_nodejs']['cogility_directory']
-	command 'tar xzvf /tmp/cogility_node.tar.gz'
+	command 'tar xzvf /tmp/cogility_node.tar.gz && mv /opt/cogility/tmp/CogilityNode/ /opt/cogility/ && rm -rf /opt/cogility/tmp'
 	creates node['cognode_nodejs']['cogilitynode_directory']
 end 
 
@@ -35,7 +35,7 @@ end
 
 execute 'install_java_8' do
 	cwd node['cognode_nodejs']['java_install_dir']
-	command 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.tar.gz" && tar xzf jdk-8u60-linux-x64.tar.gz && ln -s jdk-8u60-linux-x64 java'
+	command 'wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jdk-8u60-linux-x64.tar.gz" && tar xzf jdk-8u60-linux-x64.tar.gz && ln -s jdk1.8.0_60 java'
 	creates node['cognode_nodejs']['java_home']
 	action :nothing
 end
@@ -51,6 +51,7 @@ bash "append_to_root_bash" do
 	user "root"
 	code <<-EOF
 		cat /tmp/java_variables.conf >> /root/.bashrc
+		cat /tmp/cogility_variables.conf >> /root/.bashrc
 	EOF
 	not_if "grep -q JAVA_HOME /root/.bashrc"
 	notifies :run, 'bash[append_to_ec2_bash]', :immediately
@@ -61,6 +62,7 @@ bash "append_to_ec2_bash" do
 	user "ec2-user"
 	code <<-EOF
 		cat /tmp/java_variables.conf >> /home/ec2-user/.bashrc
+		cat /tmp/cogility_variables.conf >> /home/ec2-user/.bashrc
 		rm /tmp/java_variables.conf
 	EOF
 	not_if "grep -q JAVA_HOME /home/ec2-user/.bashrc"
