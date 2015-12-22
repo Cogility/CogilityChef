@@ -40,11 +40,19 @@ execute 'install_java_8' do
 	action :nothing
 end
 
+cookbook_file "/tmp/cogility_variables.conf" do
+	source "cogility_variables.conf"
+	owner node['cognode_nodejs']['user']
+	group node['cognode_nodejs']['group']
+	notifies :run, 'cookbook_file[/tmp/java_variables.conf]', :immediately
+end
+
 cookbook_file "/tmp/java_variables.conf" do
 	source "java_variables.conf"
 	owner node['cognode_nodejs']['user']
 	group node['cognode_nodejs']['group']	
 	notifies :run, 'bash[append_to_root_bash]', :immediately
+	action :none
 end 
 
 bash "append_to_root_bash" do
