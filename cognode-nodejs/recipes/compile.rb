@@ -1,3 +1,8 @@
+ENV['COGMODHOME'] = '/opt/cogility/CogilityNode/FrontEnd'
+ENV['COGMGRHOME'] = '/opt/cogility/CogilityNode/Runtime'
+ENV['COGPRJHOME'] = '/opt/cogility/Engagements'
+ENV['COGJDKHOME'] = '/opt/java'
+
 execute 'compile_cogility_node' do
         cwd '/opt/cogility/CogilityNode/Common'
         command './compile-all.pl master=yes'
