@@ -5,3 +5,30 @@ remote_file '/tmp/cea_node.tar.gz' do
         mode '0755'
         action :create
 end
+
+execute 'extract_cea_repo' do
+        cwd '/opt/cogility/Engagements'
+        command 'tar xzvf /tmp/cea_node.tar.gz && mv /opt/cogility/Engagements/tmp/CEA/ /opt/cogility/Engagements/CEA && rm -rf /opt/cogility/Engagements/tmp'
+        creates '/opt/cogility/Engagements/CEA'
+end
+
+execute 'npm_install_cea' do 
+	cwd '/opt/cogility/Engagements/CEA'
+	command 'npm install'
+end
+
+bash "update_mongo_path" do
+	user "root"
+	code <<-EOF
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/Engagements/CEA/Config/development.json
+		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/Engagements/CEA/Config/development.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/Engagements/CEA/Config/default.json
+		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/Engagements/CEA/Config/default.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/CogilityNode/Runtime/config/default.json
+		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/CogilityNode/Runtime/config/default.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/CogilityNode/Runtime/config/development.json
+		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/CogilityNode/Runtime/config/development.json
+	EOF
+	cwd '/opt/cogility'
+	action :run
+end
