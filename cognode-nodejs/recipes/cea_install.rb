@@ -20,14 +20,14 @@ end
 bash "update_mongo_path" do
 	user "root"
 	code <<-EOF
-		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/Engagements/CEA/Config/development.json
-		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/Engagements/CEA/Config/development.json
-		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/Engagements/CEA/Config/default.json
-		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/Engagements/CEA/Config/default.json
-		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/CogilityNode/Runtime/config/default.json
-		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/CogilityNode/Runtime/config/default.json
-		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/mongodb1.cogilitycloud.com\/passport_local_mongoose",' /opt/cogility/CogilityNode/Runtime/config/development.json
-		sed -i 's/localhost/mongodb1.cogilitycloud.com/' /opt/cogility/CogilityNode/Runtime/config/development.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/opacus\/passport_local_mongoose",' /opt/cogility/Engagements/CEA/Config/development.json
+		sed -i 's/localhost/opacus/' /opt/cogility/Engagements/CEA/Config/development.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/opacus\/passport_local_mongoose",' /opt/cogility/Engagements/CEA/Config/default.json
+		sed -i 's/localhost/opacus/' /opt/cogility/Engagements/CEA/Config/default.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/opacus\/passport_local_mongoose",' /opt/cogility/CogilityNode/Runtime/config/default.json
+		sed -i 's/localhost/opacus/' /opt/cogility/CogilityNode/Runtime/config/default.json
+		sed -i -e '/.*"mongoURI".*/a\ "passportMongoURI": "mongodb:\/\/opacus\/passport_local_mongoose",' /opt/cogility/CogilityNode/Runtime/config/development.json
+		sed -i 's/localhost/opacus/' /opt/cogility/CogilityNode/Runtime/config/development.json
 	EOF
 	cwd '/opt/cogility'
 	action :run
