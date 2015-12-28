@@ -7,6 +7,10 @@
 # All rights reserved - Do Not Redistribute
 #
 
+service 'mongod' do
+	action :restart
+end
+
 template '/tmp/firstuser.js' do
 	cookbook node['cognode_mongodb']['template_cookbook']
 	source node['cognode_mongodb']['dbuser_template'] 
