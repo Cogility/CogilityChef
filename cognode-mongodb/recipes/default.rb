@@ -10,5 +10,5 @@
 include_recipe 'cognode-mongodb::prerequisites'
 include_recipe 'cognode-mongodb::cogility'
 include_recipe 'cognode-mongodb::install'
-include_recipe 'cognode-mongodb::config'
 include_recipe 'cognode-mongodb::security'
+include_recipe 'cognode-mongodb::config'
