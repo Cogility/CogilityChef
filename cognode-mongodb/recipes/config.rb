@@ -26,6 +26,6 @@ end
 
 execute 'config_cea' do
 	cwd '/tmp'
-	command 'mongo cea /tmp/firstuser.js'
+	command 'if [ -z "$(ps axu | grep mongo)" ]; then mongo cea /tmp/firstuser.js; fi'
 	action :nothing
 end
