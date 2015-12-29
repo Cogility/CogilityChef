@@ -11,6 +11,13 @@ service 'mongod' do
 	action :restart
 end
 
+execute 'restart_mongo' do 
+	cwd '/'
+	command 'mongod --shutdown; sleep 10; rm /var/run/mongodb/mongodb.pid; rm /var/lock/subsys/mongod; service mongod start &' 
+	user 'root'
+	action :run
+end
+
 template '/tmp/firstuser.js' do
 	cookbook node['cognode_mongodb']['template_cookbook']
 	source node['cognode_mongodb']['dbuser_template'] 

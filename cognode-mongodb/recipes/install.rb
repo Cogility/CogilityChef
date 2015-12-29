@@ -45,6 +45,6 @@ end
 
 execute 'chown_dependencies' do 
 	cwd '/'
-	command 'chown -R mongod:mongod /data && chown -R mongod:mongod /var/run/mongodb && chown -R mongod:mongod /var/log/mongodb'
+	command 'chown -R mongod:mongod /data && chown -R mongod:mongod /var/run/mongodb && chown -R mongod:mongod /var/log/mongodb && echo \'OPTIONS="--quiet -f /etc/mongod.conf"\' > /etc/sysconfig/mongod'
 	action :nothing
 end

@@ -6,11 +6,6 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-
-service "nginx" do
-	action :stop
-end 
-
 file "/etc/nginx/conf.d/default.conf" do
 	action :delete
 end
@@ -23,7 +18,7 @@ template "/etc/nginx/conf.d/default.conf" do
 end
 
 service "nginx" do
-	supports :status => true, :restart => true, :reload => true	
+	supports :status => true, :restart => true, :reload => true, :stsart => true
 end
 
 directory '/opt/cogility' do
@@ -47,4 +42,9 @@ execute 'extract_ceaui' do
 	command 'tar xvzf ceaui-static.tar.gz && mv tmp/ceaui/ ceaui && rm ceaui-static.tar.gz && rm -rf tmp'
 	creates '/opt/cogility/ceaui'
 	action :nothing
+	notifies :start, 
+end
+
+service "nginx" do
+        action :restart
 end
