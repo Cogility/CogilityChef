@@ -7,10 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-service 'mongod' do
-	action :restart
-end
-
 execute 'restart_mongo' do 
 	cwd '/'
 	command 'mongod --shutdown; sleep 10; rm /var/run/mongodb/mongodb.pid; rm /var/lock/subsys/mongod; service mongod start &' 
