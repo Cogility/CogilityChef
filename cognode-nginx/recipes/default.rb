@@ -18,7 +18,7 @@ template "/etc/nginx/conf.d/default.conf" do
 end
 
 service "nginx" do
-	supports :status => true, :restart => true, :reload => true, :stsart => true
+	supports :status => true, :restart => true, :reload => true, :start => true
 end
 
 directory '/opt/cogility' do
