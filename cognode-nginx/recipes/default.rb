@@ -17,10 +17,6 @@ template "/etc/nginx/conf.d/default.conf" do
 	mode "0755"
 end
 
-service "nginx" do
-	supports :status => true, :restart => true, :reload => true, :start => true
-end
-
 directory '/opt/cogility' do
 	owner 'ec2-user'
 	group 'ec2-user'
@@ -46,5 +42,7 @@ execute 'extract_ceaui' do
 end
 
 service "nginx" do
-        action :restart
+	provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
+	supports status: true, restart: true
+        action [:start, :enable]
 end
