@@ -38,11 +38,11 @@ execute 'extract_ceaui' do
 	command 'tar xvzf ceaui-static.tar.gz && mv tmp/ceaui/ ceaui && rm ceaui-static.tar.gz && rm -rf tmp'
 	creates '/opt/cogility/ceaui'
 	action :nothing
-	notifies :start, service[nginx], :immediately
+	notifies :start, 'service[nginx]', :immediately
 end
 
 #service "nginx" do
 #	provider Chef::Provider::Service::Init::Redhat  if node['platform_family'] == 'redhat'
 #	supports status: true, restart: true
-#        action [:start, :enable]
+#	action [:start, :enable]
 #end
