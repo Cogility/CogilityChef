@@ -43,8 +43,17 @@ template node['cognode_mongodb']['dbconfig_file'] do
   notifies :run, 'execute[chown_dependencies]', :immediately
 end
 
+template '/etc/init.d/mongod' do
+  cookbook node['cognode_mongodb']['template_cookbook']
+  source 'mongod.initd.erb'
+  owner 'root'
+  group 'root'
+  mode 0755
+  action :create
+end
+
 execute 'chown_dependencies' do 
 	cwd '/'
-	command 'chown -R mongod:mongod /data && chown -R mongod:mongod /var/run/mongodb && chown -R mongod:mongod /var/log/mongodb && echo \'OPTIONS="--quiet -f /etc/mongod.conf"\' > /etc/sysconfig/mongod'
+	command 'chown -R mongod:mongod /data && chown -R mongod:mongod /var/run/mongodb && chown -R mongod:mongod /var/log/mongodb && echo \'OPTIONS="-f /etc/mongod.conf"\' > /etc/sysconfig/mongod'
 	action :nothing
 end

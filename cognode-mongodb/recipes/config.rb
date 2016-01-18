@@ -9,7 +9,7 @@
 
 execute 'restart_mongo' do 
 	cwd '/'
-	command 'mongod --shutdown; sleep 10; rm /var/run/mongodb/mongodb.pid; rm /var/lock/subsys/mongod; service mongod start &' 
+	command 'mongod --shutdown; sleep 10; rm /var/run/mongodb/mongodb.pid; rm /var/lock/subsys/mongod; chown -R mongod:mongod /data/db; chown -R monogd:mongod /var/log/mongodb; chown -R monogd:mongod /var/run/mongodb; service mongod start' 
 	user 'root'
 	action :run
 end
