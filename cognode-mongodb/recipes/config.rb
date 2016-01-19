@@ -9,7 +9,7 @@
 
 execute 'restart_mongo' do 
 	cwd '/'
-	command 'if [[ $(ps axu | grep mongo | grep -v grep) ]]; then mongod --shutdown; fi; sleep 10; rm -f /var/run/mongodb/mongodb.pid; rm -f /var/lock/subsys/mongod; chown -R mongod:mongod /data/db; chown -R monogd:mongod /var/log/mongodb; chown -R monogd:mongod /var/run/mongodb; service mongod start' 
+	command 'if [[ $(ps axu | grep mongo | grep -v grep) ]]; then mongod --shutdown; fi; sleep 10; rm -f /var/run/mongodb/mongodb.pid; rm -f /var/lock/subsys/mongod; service mongod start' 
 	user 'root'
 	action :run
 end
