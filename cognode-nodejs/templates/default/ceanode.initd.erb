@@ -1,0 +1,81 @@
+#!/bin/bash
+
+# ceanode - Startup script for CEA project 
+
+# chkconfig: 35 85 15
+# description: Cogility Event Analyzer
+# processname: cognode 
+
+. /etc/rc.d/init.d/functions
+
+CEA_USER=ec2-user
+CEA_GROUP=ec2-user
+
+PIDFILEPATH=/var/run/ceanode.pid
+PIDDIR=`dirname $PIDFILEPATH`
+
+COGMGRHOME=/opt/cogility/CogilityNode/Runtime
+COGPRJHOME=/opt/cogility/Engagements
+NODE_ENV=development
+NODE_CONFIG_DIR=$COGPRJHOME/CEA/Config
+ROOT_DIR=$COGPRJHOME/CEA
+NODE_PATH=$COGPRJHOME/CEA/node_modules:${COGMGRHOME}/node_modules:${COGMGRHOME}
+ceanode="cd $ROOT_DIR && /usr/bin/nodemon --delay 0 --watch $COGMGRHOME/migrations --ext '.migration, .js' ${COGMGRHOME}/app.js $1 > /dev/null 2>&1 &"
+
+start() 
+{
+	ulimit -f unlimited
+	ulimit -t unlimited
+	ulimit -v unlimited 
+	ulimit -n 64000
+	ulimit -m unlimited
+	ulimit -u 64000
+
+	echo -n $"Starting Cogility Event Analyzer (CEA): "
+	runuser -l "$CEA_USER" -c "/usr/local/bin/nodemon --delay 0 --watch $COGMGRHOME/migrations --ext '.migration, .js' ${COGMGRHOME}/app.js $1 >/dev/null 2>&1 &" && echo_success || echo_failure
+	sleep 5
+	ps axu | grep nodemon | grep -v Insight | grep -v grep | awk '{ print $2 }' > $PIDFILEPATH
+	RETVAL=`if [ -n $(ps axu | grep nodemon | grep -v Insight | grep -v grep | awk '{ print $2 }') ]; then echo 0; else echo 1; fi`
+	echo
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ceanode
+}
+stop()
+{
+	echo -n $"Stopping Cogility Event Analyzer (CEA): "
+	kill $(ps axu | grep node | grep -v Insight | grep -v grep | awk '{ print $2 }')
+	RETVAL=$?
+	rm -f $PIDFILEPATH
+	echo
+	[ $RETVAL -eq 0] rm -f /var/lock/subsys/ceanode
+}
+restart()
+{
+	stop
+	start
+}
+
+RETVAL=0
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart|reload|force-reload)
+		restart
+		;;
+	condrestart)
+		[ -f /var/lock/subsys/ceanode ] && restart || :
+		;;
+	status)
+		status $ceanode
+		RETVAL=$?
+		;;
+	*)
+		echo "Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+		RETVAL=1
+esac
+
+exit $RETVAL
