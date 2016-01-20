@@ -32,3 +32,20 @@ bash "update_mongo_path" do
 	cwd '/opt/cogility'
 	action :run
 end
+
+template '/etc/init.d/ceanode' do 
+	cookbook 'cognode-nodejs'
+	source 'ceanode.initd.erb'
+	user 'root'
+	group 'root'
+	mode 0755
+	action :create
+	notifies :run, "execute[install_cea_initd]", :immediately
+end
+
+execute "install_cea_initd" do
+	cwd '/etc/init.d'
+	command '/usr/local/bin/npm install nodemon -g; chkconfig ceanode --level 35 on && systemctl daemon-reload'
+	user 'root'
+	action :nothing
+end
